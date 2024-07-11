@@ -1,25 +1,34 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import Table from './Components/Table';
+import axios from 'axios';
 
 function App() {
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      let studentsData = await axios.get("https://668d4175099db4c579f24e88.mockapi.io/student")
+
+      setData(studentsData.data);
+    }
+
+    getData();
+  })
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Table data={data} />
     </div>
   );
 }
 
 export default App;
+
+// API Method:
+
+// create   ->   POST
+// Read     ->   GET
+// Update   ->   PUT
+// Delete   ->   DELETE
