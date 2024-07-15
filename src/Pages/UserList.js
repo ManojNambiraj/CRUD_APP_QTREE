@@ -7,16 +7,24 @@ const UserList = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const getData = async () => {
-      let studentsData = await axios.get(
-        "https://668d4175099db4c579f24e88.mockapi.io/student"
-      );
-
-      setData(studentsData.data);
-    };
-
     getData();
   }, []);
+
+  const getData = async () => {
+    let studentsData = await axios.get(
+      "https://668d4175099db4c579f24e88.mockapi.io/student"
+    );
+
+    setData(studentsData.data);
+  };
+
+  const handleDelete = async (id) => {
+    await axios.delete(
+      `https://668d4175099db4c579f24e88.mockapi.io/student/${id}`
+    );
+
+    getData();
+  };
 
   return (
     <div className="App">
@@ -25,7 +33,7 @@ const UserList = () => {
           Create User
         </Link>
       </div>
-      <Table data={data} />
+      <Table data={data} handleDelete={handleDelete} />
     </div>
   );
 };

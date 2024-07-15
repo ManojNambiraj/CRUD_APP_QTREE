@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Table = (props) => {
   return (
@@ -10,6 +11,7 @@ const Table = (props) => {
           <th scope="col">Age</th>
           <th scope="col">Mobile</th>
           <th scope="col">Email</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -21,6 +23,10 @@ const Table = (props) => {
               <td>{item.age}</td>
               <td>{item.mobile}</td>
               <td>{item.email}</td>
+              <td>
+                <Link to={`/edit/${item.id}`} className="btn btn-sm btn-warning">Edit</Link>
+                <button className="btn btn-sm btn-danger" onClick={() => {props.handleDelete(item.id)}}>Delete</button>
+              </td>
             </tr>
           );
         })}
